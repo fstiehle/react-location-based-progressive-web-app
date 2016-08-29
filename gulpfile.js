@@ -23,7 +23,7 @@ var DIST_DIR = 'dist';
 // the service worker will precache resources but won't actually serve them.
 // This allows you to test precaching behavior without worry about the cache preventing your
 // local changes from being picked up during the development cycle.
-var handleFetch = false;
+var handleFetch = true;
  
 // Gulp tasks
 // ----------------------------------------------------------------------------
