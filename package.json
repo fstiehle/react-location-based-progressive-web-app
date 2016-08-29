@@ -1,11 +1,8 @@
 {
-  "name": "service-worker",
+  "name": "react-service-worker",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.html",
-  "scripts": {
-    "start": ["gulp build", "gulp minify"]
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -21,6 +18,7 @@
     "gulp-minifier": "^0.1.4",
     "gulp-sass": "^2.3.2",
     "gulp-util": "^3.0.7",
+    "run-sequence": "^1.2.2",
     "sw-precache": "^3.2.0",
     "vinyl-source-stream": "^1.1.0"
   },
