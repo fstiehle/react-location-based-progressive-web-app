@@ -1,0 +1,70 @@
+{
+  "name": "fs",
+  "css_prefix_text": "icon-",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "a32d12927584e3c8a3dff23eb816d360",
+      "css": "foursquare",
+      "code": 61824,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "25b34dea4784f72c710454f32ff8fa2b",
+      "css": "star",
+      "code": 59392,
+      "src": "entypo"
+    },
+    {
+      "uid": "0e3f1335f83cca67329b2c4bcb3aaec5",
+      "css": "star-empty",
+      "code": 59393,
+      "src": "entypo"
+    },
+    {
+      "uid": "c117f17c0316ef71fb2a658c4c273002",
+      "css": "compass",
+      "code": 59394,
+      "src": "entypo"
+    },
+    {
+      "uid": "815503841e980c848f55e0271deacead",
+      "css": "link",
+      "code": 59395,
+      "src": "entypo"
+    },
+    {
+      "uid": "8663320a860b00f26e94d3d15c9ba99a",
+      "css": "clock",
+      "code": 59396,
+      "src": "entypo"
+    },
+    {
+      "uid": "bb46b15cb78cc4cc05d3d715d522ac4d",
+      "css": "cw",
+      "code": 59397,
+      "src": "entypo"
+    },
+    {
+      "uid": "98c63f6b98c543b52d4c43bcd486d28f",
+      "css": "flash",
+      "code": 59398,
+      "src": "entypo"
+    },
+    {
+      "uid": "5cc58545bb38c912940470480d3df145",
+      "css": "restaurant",
+      "code": 59399,
+      "src": "maki"
+    },
+    {
+      "uid": "7184d8171b6a9b18eabbace94cca21db",
+      "css": "chart-line",
+      "code": 59400,
+      "src": "entypo"
+    }
+  ]
+}
