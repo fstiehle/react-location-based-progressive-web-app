@@ -4,6 +4,9 @@ $background: #C9B6C0;
 $font: #666;
 $hover: #808080;
 
+$break-medium: 580px;
+$break-small: 320px;
+
 @font-face {
   font-family: 'fs';
   src: url('../assets/font/fs.eot?75217134');
@@ -53,6 +56,7 @@ body {
 	line-height: 1.2;
     color: $font;
     background-color: $background;
+    min-width: 320px;
 }
 ol, ul {
 	list-style: none;
@@ -78,8 +82,6 @@ table {
     font-family: "fs";
     font-style: normal;
     font-weight: normal;
-
-    font-size: 35px;
 
     speak: none;
 
@@ -150,7 +152,7 @@ a:active {
     max-width: 650px;
     margin: auto;
 }
-#header {
+#header {    
     color: white;
     padding: 20px;
     background-color: $primary;
@@ -160,11 +162,11 @@ a:active {
     }
 }
 #refresh {
+    font-size: 25px;
     border: none;
     background: none;
     color: white;
     font-family: 'fs';
-    font-size: 25px;
     
     &:before {
         content: '\e805';
@@ -175,7 +177,7 @@ a:active {
     }
 }
 #attribution {
-    font-size: 16px;
+    font-size: 25px;
     float:right;
 }
 #table {
@@ -218,12 +220,16 @@ a:active {
     }
 }
 .distance {
-    float: right;
     background-color: #f5f5f5;
 }
 .rating > li {
+    font-size: 35px;
     display: inline;
-    color: $primary;
+    color: $primary; 
+    
+    @media screen and (max-width: $break-medium) {
+        font-size: 25px;
+    }
 }
 .hidden {
     display: none;
