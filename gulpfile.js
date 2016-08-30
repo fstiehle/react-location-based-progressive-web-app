@@ -31,6 +31,10 @@ gulp.task('dev-scripts', function () {
     return bundleApp(true);
 });
 
+gulp.task('prod-env', function() {
+    process.env.NODE_ENV = 'production';
+});
+
 gulp.task('prod-scripts', function () {
     return bundleApp(false);
 });
@@ -86,8 +90,8 @@ gulp.task('sass', function () {
 
 // Service Worker via sw-precache
 gulp.task('generate-service-worker', function(callback) {
-    swPrecache.write(path.join(DIST_DIR, 'service-worker.js'), {
-        staticFileGlobs: [DIST_DIR + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff}'],
+    swPrecache.write(path.join(DIST_DIR, '/service-worker.js'), {
+        staticFileGlobs: [DIST_DIR + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'],
 
         // Dynamic API data fetch
         handleFetch: handleFetch,
@@ -104,14 +108,14 @@ gulp.task('generate-service-worker', function(callback) {
             }
         }],
 
-        stripPrefix: DIST_DIR
+        stripPrefix: DIST_DIR + "/"
     }, callback);
 });
 
 // Run this for the final build
 // Run 'minify' before the code is shiped
 gulp.task('build', function(cb) {
-    runSequence(['prod-scripts', 'copy-static', 'generate-service-worker', 'sass'], 'minify', cb);
+    runSequence('prod-env', ['prod-scripts', 'copy-static', 'generate-service-worker', 'sass'], 'minify', cb);
 });          
  
 // When running 'gulp' on the terminal this task will fire.

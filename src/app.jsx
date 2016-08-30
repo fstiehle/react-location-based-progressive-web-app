@@ -9,27 +9,23 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js').then(function(registration) {
         // Registration was successful
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        
-        var installingWorker = registration.installing;
 
-        installingWorker.onstatechange = function() {
-            if (installingWorker.state == 'installed') {
-                
-                if (navigator.serviceWorker.controller) {
-                    /** At this point, the old content will have been purged and the fresh content will have been added to the cache. 
-                    console.log('New or updated content is available.'); **/
-                } else {
-                    // At this point, everything has been precached
-                    console.log('Content is now available offline!');
-                }
 
-            }
-        };
+        self.addEventListener('install', function(event) {
+            self.skipWaiting();
+            console.log('ServiceWorker Installed', event);
+        });
+
+        self.addEventListener('activate', function(event) {
+            console.log('ServiceWorker Activated', event);
+        });
 
     }).catch(function(err) {
         // registration failed :(
         console.log('ServiceWorker registration failed: ', err);
     });
+} else {
+    console.log('Browser doesnt support Service Workers');
 }
 
 var app = document.getElementById('content');

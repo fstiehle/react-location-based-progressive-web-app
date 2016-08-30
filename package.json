@@ -2,7 +2,7 @@
   "name": "react-service-worker",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.html",
+  "main": "src/app.jsx",
   "keywords": [],
   "author": "",
   "license": "ISC",

@@ -9,12 +9,12 @@ $break-small: 320px;
 
 @font-face {
   font-family: 'fs';
-  src: url('../assets/font/fs.eot?75217134');
-  src: url('../assets/font/fs.eot?75217134#iefix') format('embedded-opentype'),
-       url('../assets/font/fs.woff2?75217134') format('woff2'),
-       url('../assets/font/fs.woff?75217134') format('woff'),
-       url('../assets/font/fs.ttf?75217134') format('truetype'),
-       url('../assets/font/fs.svg?75217134#fs') format('svg');
+  src: url('../assets/font/fs.eot');
+  src: url('../assets/font/fs.eot#iefix') format('embedded-opentype'),
+       url('../assets/font/fs.woff2') format('woff2'),
+       url('../assets/font/fs.woff') format('woff'),
+       url('../assets/font/fs.ttf') format('truetype'),
+       url('../assets/font/fs.svg#fs') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -156,6 +156,7 @@ a:active {
     color: white;
     padding: 20px;
     background-color: $primary;
+    margin-bottom: 30px;
     
     > a {
         color: white;
@@ -167,6 +168,7 @@ a:active {
     background: none;
     color: white;
     font-family: 'fs';
+    float: left;
     
     &:before {
         content: '\e805';
