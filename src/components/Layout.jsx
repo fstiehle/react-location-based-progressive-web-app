@@ -68,7 +68,7 @@ export default class Layout extends React.Component {
     handleError(error) {
         switch(error.code) {
             case error.PERMISSION_DENIED:
-                alert("User denied the request for Geolocation.");
+                alert("Please grant access to your location.");
                 break;
             case error.POSITION_UNAVAILABLE:
                 console.log("Location information is unavailable from Network.");
@@ -85,7 +85,7 @@ export default class Layout extends React.Component {
         if (location) {
             this.getUrlFromLocation(location);
         } else {
-            alert("Location information is unavailable.");
+            alert("Location information is unavailable. No results shown.");
         }
     }
     
