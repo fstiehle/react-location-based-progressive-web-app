@@ -10,10 +10,7 @@ export default class Hours extends React.Component {
         
         return <div className="content">
             <ul>
-                <li className="icon-clock"></li>
-            </ul>
-            <ul>
-                <li>{this.props.hours}</li>
+                <li><i className="icon-clock"></i>{this.props.hours}</li>
             </ul>
         </div>;
     }

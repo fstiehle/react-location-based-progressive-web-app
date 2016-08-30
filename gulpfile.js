@@ -18,12 +18,6 @@ var dependencies = [
 
 var DEV_DIR = 'src';
 var DIST_DIR = 'dist';
-
-// If handleFetch is false (i.e. because this is called from generate-service-worker-dev), then
-// the service worker will precache resources but won't actually serve them.
-// This allows you to test precaching behavior without worry about the cache preventing your
-// local changes from being picked up during the development cycle.
-var handleFetch = true;
  
 // Gulp tasks
 // ----------------------------------------------------------------------------
@@ -49,14 +43,14 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('reload', function() {
-    gulp.src('./dist/**/*.*')
+    return gulp.src('./dist/**/*.*')
         .pipe(connect.reload());
 });
  
 // Watches for changes in the DEV_DIR
-gulp.task('watch', function (cb) {
+gulp.task('watch', function () {
 	gulp.watch([DEV_DIR + '/**/*'], function(){
-        runSequence(['dev-scripts', 'copy-static', 'sass'], 'reload', cb)
+        runSequence(['dev-scripts', 'copy-static', 'sass'], 'reload')
     })
 });
 
@@ -89,12 +83,17 @@ gulp.task('sass', function () {
 });
 
 // Service Worker via sw-precache
-gulp.task('generate-service-worker', function(callback) {
+gulp.task('generate-service-worker', function(cb) {
+    gutil.log("handleFetch: " + (process.env.NODE_ENV === 'production').toString());
     swPrecache.write(path.join(DIST_DIR, '/service-worker.js'), {
         staticFileGlobs: [DIST_DIR + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'],
 
         // Dynamic API data fetch
-        handleFetch: handleFetch,
+        // If handleFetch is false (i.e. because this is called from generate-service-worker-dev), then
+        // the service worker will precache resources but won't actually serve them.
+        // This allows you to test precaching behavior without worry about the cache preventing your
+        // local changes from being picked up during the development cycle.
+        handleFetch: process.env.NODE_ENV === 'production',
         runtimeCaching: [{
             // See https://github.com/GoogleChrome/sw-toolbox#methods
             urlPattern: /https:\/\/api.foursquare.com\/v2\/venues\/explore/,
@@ -102,14 +101,14 @@ gulp.task('generate-service-worker', function(callback) {
             // See https://github.com/GoogleChrome/sw-toolbox#options
             options: {
                 cache: {
-                    maxEntries: 6,
+                    maxEntries: 12,
                     name: 'runtime-cache'
                 }
             }
         }],
 
         stripPrefix: DIST_DIR + "/"
-    }, callback);
+    }, cb);
 });
 
 // Run this for the final build

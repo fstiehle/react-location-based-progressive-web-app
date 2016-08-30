@@ -57,6 +57,10 @@ body {
     color: $font;
     background-color: $background;
     min-width: 320px;
+    
+    @media screen and (max-width: $break-medium) {
+        font-size: 16px;
+    }
 }
 ol, ul {
 	list-style: none;
@@ -78,7 +82,7 @@ table {
     ICON FONT
 */
 
-[class^="icon-"]:before, [class*=" icon-"]:before {
+[class^="icon-"]:before, [class*=" icon-"]:before, #refresh {
     font-family: "fs";
     font-style: normal;
     font-weight: normal;
@@ -116,13 +120,10 @@ table {
  
 .icon-star:before { content: '\e800'; } /* '' */
 .icon-star-empty:before { content: '\e801'; } /* '' */
-.icon-compass:before { content: '\e802'; } /* '' */
+.icon-arrows-cw:before { content: '\e802'; } /* '' */
 .icon-link:before { content: '\e803'; } /* '' */
 .icon-clock:before { content: '\e804'; } /* '' */
 .icon-cw:before { content: '\e805'; } /* '' */
-.icon-flash:before { content: '\e806'; } /* '' */
-.icon-restaurant:before { content: '\e807'; } /* '' */
-.icon-chart-line:before { content: '\e808'; } /* '' */
 .icon-foursquare:before { content: '\f180'; } /* '' */
 
 /*
@@ -133,9 +134,6 @@ button:active, button:hover, button:focus {
 }
 
 a {
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out; 	
-    -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
 a,
@@ -156,21 +154,23 @@ a:active {
     color: white;
     padding: 20px;
     background-color: $primary;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     
     > a {
         color: white;
     }
 }
 #refresh {
+    overflow: visible;
     font-size: 25px;
     border: none;
     background: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 10px;
     color: white;
-    font-family: 'fs';
-    float: left;
     
-    &:before {
+    &:before {        
         content: '\e805';
     }
     
@@ -208,26 +208,25 @@ a:active {
 }
 .content {
     border-bottom: 1px solid #f5f5f5;
-    display: flex;
-    flex-flow: row;
-    align-items: center;
     padding: 0 10px;
     
     > ul {
         margin: 15px;
+        display: block;
+    }
+    
+    i {
+        margin-right: 5px;
     }
     
     &:last-child {
         padding-bottom: 20px;
     }
 }
-.distance {
-    background-color: #f5f5f5;
-}
 .rating > li {
     font-size: 35px;
     display: inline;
-    color: $primary; 
+    color: gold; 
     
     @media screen and (max-width: $break-medium) {
         font-size: 25px;
@@ -239,6 +238,7 @@ a:active {
 .spinning {
     color: $secondary !important;
     animation: spin 1s infinite linear;
+    animation-fill-mode: forwards;
     transition: all 1s ease-in-out;
 }
 @keyframes spin {
