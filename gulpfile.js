@@ -86,7 +86,7 @@ gulp.task('sass', function () {
 gulp.task('generate-service-worker', function(cb) {
     gutil.log("handleFetch: " + (process.env.NODE_ENV === 'production').toString());
     swPrecache.write(path.join(DIST_DIR, '/service-worker.js'), {
-        staticFileGlobs: [DIST_DIR + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'],
+        staticFileGlobs: [DIST_DIR + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2,json}'],
 
         // Dynamic API data fetch
         // If handleFetch is false (i.e. because this is called from generate-service-worker-dev), then
