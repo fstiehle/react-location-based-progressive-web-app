@@ -1,0 +1,28 @@
+{
+    "short_name": "Sushi",
+    "name": "Offline Sushi",
+    "theme_color": "#FB5D6C",
+    "background_color": "#C9B6C0",
+    
+    "icons": [
+        {
+          "src": "assets/img/launcher-icon-1x.png",
+          "type": "image/png",
+          "sizes": "48x48"
+        },
+        {
+          "src": "assets/img/launcher-icon-2x.png",
+          "type": "image/png",
+          "sizes": "96x96"
+        },
+        {
+          "src": "assets/img/launcher-icon-4x.png",
+          "type": "image/png",
+          "sizes": "192x192"
+        }
+    ],
+    "display": "standalone",
+    
+    // url could be used for tracking parameters
+    "start_url": "/?homescreen=1"
+}
