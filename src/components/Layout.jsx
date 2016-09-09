@@ -26,10 +26,14 @@ export default class Layout extends React.Component {
             data: "",
             loading : true,
         }
+        
+        /* Location in format "ll={latitude},{longitude}" */
+        this.ll = "";
+
     }
     
     componentWillMount() {
-        this.geoLocation(this.handleLocation);
+        this.getGeoLocation(this.handleLocation);
     }
     
     /**
@@ -38,7 +42,7 @@ export default class Layout extends React.Component {
      *
      * @param function func Callback function to be called if location has been succesfully retrieved
      */
-    geoLocation(func) {
+    getGeoLocation(func) {
         this.setState({loading : true});
         if (navigator.geolocation) {            
             return navigator.geolocation.getCurrentPosition(func.bind(this), this.handleError.bind(this));
@@ -49,14 +53,12 @@ export default class Layout extends React.Component {
     
     /**
      * Builds string for location data to be used in API call to Foursquare.
-     * Saves the location to storage
      *
      * @param position Position from geolocation.getCurrentPosition
      */
-    handleLocation(position) {         
-        let ll = "ll=" + position.coords.latitude + "," + position.coords.longitude;
-        Util.saveToStorage("location", ll);
-        this.getUrlFromLocation(ll);
+    handleLocation(position) {
+        this.ll = "ll=" + position.coords.latitude + "," + position.coords.longitude;
+        this.callUrlFromLocation(this.ll);
     }
     
     /**
@@ -90,11 +92,10 @@ export default class Layout extends React.Component {
     }
     
     /**
-     * Builds the url to be called Utilizing genUrlwithParam. 
-     *
-     * @param ll Location in format "ll={latitude},{longitude}"
+     * Builds the url to be called Utilizing @Util.genUrlwithParam. 
+     * @param ll String Location in format "ll={latitude},{longitude}"
      */
-    getUrlFromLocation(ll) {
+    callUrlFromLocation(ll) {
         let url = Util.genUrlwithParam(api.url, 
             [api.id, api.key, ll, api.query, api.limit, api.version]);
         this.apiCall(url);
@@ -118,6 +119,7 @@ export default class Layout extends React.Component {
      * Callback function
      *
      * @param xmlhttp xmlhttp object
+     * @param ll String location
      */
     handleRequest(xmlhttp) {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -128,10 +130,20 @@ export default class Layout extends React.Component {
             }
             
             // Set new state to received items
-            this.setState({data : data.response.groups[0].items});            
+            this.setState({data : data.response.groups[0].items});  
+            
+            // Succesfully received data from location, back it up
+            Util.saveToStorage("location", this.ll);
         
         } else if (xmlhttp.status != 200) {
-            alert("An error occured while trying to receive data from Foursquare");
+            console.log("An error occured while trying to receive data from Foursquare");
+            // try a request with old location
+            if (Util.getFromStorage("location")) {
+                // there is a request which succeeded
+                this.ll = Util.getFromStorage("location");
+                this.callUrlFromLocation(this.ll);
+            }
+
         }
 
         this.setState({loading : false});
@@ -140,7 +152,7 @@ export default class Layout extends React.Component {
     render() {
 
         return <div>
-            <Header refresh={this.geoLocation.bind(this, this.handleLocation)} loading={this.state.loading}/> 
+            <Header refresh={this.getGeoLocation.bind(this, this.handleLocation)} loading={this.state.loading}/> 
             <Table data={this.state.data}/> 
         </div>;
     }

@@ -26,6 +26,21 @@ export function getFromStorage(key) {
 }
 
 /**
+ * Deletes value from storage via key
+ *
+ * @param key Key to delete
+ */
+export function deleteFromStorage(key) {
+    if (typeof(Storage) !== "undefined") {
+        if (getFromStorage(key)) {
+            localStorage.removeItem(key);
+        }
+    } else {
+        console.log("No local storage");
+    }
+}
+
+/**
  * Generates URL from parameters
  *
  * @param String url Base-url to be called
