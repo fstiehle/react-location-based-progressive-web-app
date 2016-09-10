@@ -9,6 +9,8 @@ On a successful api call the location is backed up into local storage, if locati
 
 __More Importantly__: If the dynamic api call fails (Device is offline) the backed up location is used to repeat the call, thus receiving an already cached response. This enables a seamless online to offline experience. Ultimately displaying data from the last available location.
 
+__Demo: [here](https://fstiehle.github.io/sushi-app/)__
+
 Build the app with `gulp build`
 
 Run the app for development with `gulp` (Server is included)
