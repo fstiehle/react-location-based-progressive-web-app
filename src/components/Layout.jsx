@@ -100,8 +100,10 @@ export default class Layout extends React.Component {
             Util.deleteFromStorage("location"); // prevent endless recursion
         }
         this.ll = ll;
-        let url = Util.genUrlwithParam(api.url, 
-            [api.id, api.key, ll, api.query, api.limit, api.version]);
+        let url = Util.genUrlwithParam(
+            api.url, 
+            [api.id, api.key, ll, api.query, api.limit, api.version]
+        );
         this.apiCall(url);
     }
 
