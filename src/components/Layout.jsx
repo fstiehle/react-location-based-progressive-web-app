@@ -26,7 +26,7 @@ export default class Layout extends React.Component {
             data: "",
             loading : true,
         }
-        
+
         /* Location in format "ll={latitude},{longitude}" */
         this.ll = "";
 
@@ -57,8 +57,8 @@ export default class Layout extends React.Component {
      * @param position Position from geolocation.getCurrentPosition
      */
     handleLocation(position) {
-        this.ll = "ll=" + position.coords.latitude + "," + position.coords.longitude;
-        this.callUrlFromLocation(this.ll);
+        let ll = "ll=" + position.coords.latitude + "," + position.coords.longitude;
+        this.callUrlFromLocation(ll);
     }
     
     /**
@@ -82,25 +82,29 @@ export default class Layout extends React.Component {
                 alert("An unknown error occurred.");
                 break;
         }
-        // check if location is backed up to storage
-        var location = Util.getFromStorage("location");
-        if (location) {
-            this.callUrlFromLocation(location);
-        } else {
-            alert("Location information is unavailable. No results shown.");
-        }
+        // try a request with old location
+        this.callUrlFromLocation();
     }
     
     /**
-     * Builds the url to be called Utilizing @Util.genUrlwithParam. 
-     * @param ll String Location in format "ll={latitude},{longitude}"
+     * Builds the url to be called Utilizing @Util.genUrlwithParam.
+     * @param ll String Location in format "ll={latitude},{longitude}. Blank if no location available"
      */
     callUrlFromLocation(ll) {
+        if (typeof ll === 'undefined') { 
+            // no ll defined, get from storage
+            if (!Util.getFromStorage("location")) {
+                return;
+            }
+            ll = Util.getFromStorage("location");
+            Util.deleteFromStorage("location"); // prevent endless recursion
+        }
+        this.ll = ll;
         let url = Util.genUrlwithParam(api.url, 
             [api.id, api.key, ll, api.query, api.limit, api.version]);
         this.apiCall(url);
-    }   
-    
+    }
+
     /**
      * Calls a url via xmlhttp
      *
@@ -138,12 +142,7 @@ export default class Layout extends React.Component {
         } else if (xmlhttp.status != 200) {
             console.log("An error occured while trying to receive data from Foursquare");
             // try a request with old location
-            if (Util.getFromStorage("location")) {
-                // there is a request which succeeded
-                this.ll = Util.getFromStorage("location");
-                this.callUrlFromLocation(this.ll);
-            }
-
+            this.callUrlFromLocation();
         }
 
         this.setState({loading : false});
