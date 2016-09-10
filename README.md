@@ -1,4 +1,4 @@
-# react-service-worker
+# Location based progressive web app
 
 Exemplary implementation of an offline capable, location based React app utilizing service-workers. Shows an app install banner on supported devices.
 
