@@ -85,7 +85,7 @@ export default class Layout extends React.Component {
         // check if location is backed up to storage
         var location = Util.getFromStorage("location");
         if (location) {
-            this.getUrlFromLocation(location);
+            this.callUrlFromLocation(location);
         } else {
             alert("Location information is unavailable. No results shown.");
         }
