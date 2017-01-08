@@ -32,8 +32,8 @@ export default class TableItem extends React.Component {
         //check for mandatory data
         if (!this.props.data.name || !this.props.data.location || !this.props.data.location.city
             || !this.props.data.location.address) {
-            console.log("Entry missing mandatory data: " . this.props.data.id);
-            return;
+            console.log("Entry missing mandatory data");
+            return <div></div>;
         }
 
         return <div className="item">
